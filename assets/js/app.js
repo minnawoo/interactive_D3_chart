@@ -60,6 +60,9 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
   if (chosenXAxis === "age") {
     var label = "Age (Median):";
   }
+  else if (chosenXAxis === "income") {
+    var label = "Household Income (Median):";
+  }
   else {
     var label = "In Poverty:";
   }
@@ -95,6 +98,7 @@ d3.csv("./assets/data/data.csv").then(function(stateData) {
     data.poverty = parseFloat(data.poverty);
     data.healthcare = parseFloat(data.healthcare);
     data.age = parseFloat(data.age);
+    data.income = +data.income;
   });
 
   // Step 2: Create scale functions
@@ -179,6 +183,12 @@ d3.csv("./assets/data/data.csv").then(function(stateData) {
   //     toolTip.hide(data);
   //   });
 
+  // // Non-bonus:
+  // chartGroup.append("text")
+  //   .attr("transform", `translate(${width / 2}, ${height + 40})`)
+  //   .classed("aText", true)
+  //   .text("In Poverty (%)");
+
   // Create and append group for 2 x-axis labels
   var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 40})`);
@@ -197,6 +207,13 @@ d3.csv("./assets/data/data.csv").then(function(stateData) {
     .classed("inactive", true)
     .text("Age (Median)");
 
+  var incomeLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 60)
+    .attr("value", "income") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Household Income (Median)");
+
 	// Append y axis label
   chartGroup.append("text")
     .attr("transform", "rotate(-90)")
@@ -205,11 +222,6 @@ d3.csv("./assets/data/data.csv").then(function(stateData) {
     .attr("dy", "1em")
     .classed("aText", true)
     .text("Lacks Healthcare (%)");
-  // // Non-bonus:
-  // chartGroup.append("text")
-  //   .attr("transform", `translate(${width / 2}, ${height + 40})`)
-  //   .classed("aText", true)
-  //   .text("In Poverty (%)");
 
   // Create chart title
   chartGroup.append("text")
@@ -248,15 +260,32 @@ d3.csv("./assets/data/data.csv").then(function(stateData) {
         circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
         // Change classes to change bold text (axes)
-        if (chosenXAxis === "age") {
-          ageLabel
+        if (chosenXAxis === "income") {
+        	incomeLabel
             .classed("active", true)
             .classed("inactive", false);
+          ageLabel
+            .classed("active", false)
+            .classed("inactive", true);
+          povertyLabel
+            .classed("active", false)
+            .classed("inactive", true);
+        }
+        else if (chosenXAxis === "age") {
+        	incomeLabel
+            .classed("active", false)
+            .classed("inactive", true);
+          ageLabel
+            .classed("active", true)
+            .classed("inactive", false);       
           povertyLabel
             .classed("active", false)
             .classed("inactive", true);
         }
         else {
+        	incomeLabel
+            .classed("active", false)
+            .classed("inactive", true);   
           ageLabel
             .classed("active", false)
             .classed("inactive", true);
