@@ -1,9 +1,9 @@
 # interactive_D3_chart
 UofT SCS Data Analytics Bootcamp's Unit 16 Assignment (D3)
-<br><br><br>
+<br><br>
 <strong>Please view my completed interactive D3 chart at this link:<br>
   - [https://interactive-d3-chart.herokuapp.com/](https://interactive-d3-chart.herokuapp.com/)</strong>
-
+<br>
 ![my-final](Images/my-final.png)
 
 ## Background
