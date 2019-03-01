@@ -155,7 +155,7 @@ function updateParagraphText(chosenXAxis, chosenYAxis) {
 }
 
 // Import Data
-d3.csv("../static/data/data.csv").then(function(stateData) {
+d3.csv("../interactive_d3_chart/static/data/data.csv").then(function(stateData) {
 
 	console.log(stateData);
 

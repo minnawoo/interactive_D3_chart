@@ -1,1 +1,0 @@
-web: gunicorn interactive_d3_chart.app:app
